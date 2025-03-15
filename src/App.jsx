@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from './supabaseClient';
-import NavBar from './components/NavBar';
+import NavBar from '../components/NavBar';
 import Home from './components/Home';
 import CreateRequest from './components/CreateRequest';
 import Profile from './components/Profile';
