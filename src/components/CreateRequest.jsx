@@ -14,10 +14,10 @@ function CreateRequest() {
   }
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div header>
       <h2>Create a New Request</h2>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div title>
           
           <label>
             Request Title:<br />
@@ -28,9 +28,9 @@ function CreateRequest() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-          
+
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div desc>
           
           <label>
             Request Description:<br />
@@ -43,21 +43,17 @@ function CreateRequest() {
           </label>
 
         </div>
-        <div style={{ marginBottom: '1rem' }}>
+        <div labels>
           
           <label>
             Request Category:
           </label>
-          <div style={{ marginTop: '0.5rem' }}>
+          <div buttons>
             {categories.map((cat) => (
               <button 
                 key={cat} 
                 type="button" 
                 onClick={() => setCategory(cat)}
-                style={{ 
-                  marginRight: '0.5rem', 
-                  background: category === cat ? '#ccc' : '#eee' 
-                }}
               >
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
               </button>
