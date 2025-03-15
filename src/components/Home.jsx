@@ -1,15 +1,14 @@
 import React from 'react'
-//import RequestFeed from './RequestFeed'
-
+import RequestFeed from './RequestFeed'
 
 function Home() {
   return (
-    <div id="Home" style={{ padding: '1rem' }}>
+    <div style={{ padding: '1rem' }}>
       <h1>Welcome to the Student Requests App</h1>
-      <p>Students can post and view various types of requests.</p>
+      <p>Here, students can post and view various types of requests.</p>
+      <RequestFeed />
     </div>
   )
 }
-
 
 export default Home
