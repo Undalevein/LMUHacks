@@ -4,25 +4,81 @@ body {
   height: 100%;
   background-color: #053242;
   padding: 0;
-  margin:0
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
 }
-
 
 /* Home Page Styles */
 #Home h1 {
-  font-family: "DM Sans", sans-serif;
   background-color: #E8ECED;
   padding: 50px;
-
+  font-size: 2rem;
+  color: #053242;
+  text-align: center;
 }
 
 #Home p {
-  font-family: "DM Sans", sans-serif;
   font-weight: bold;
   background-color: #E8ECED;
   padding: 50px;
+  font-size: 1.2rem;
+  color: #053242;
+  text-align: center;
 }
 
+/* RequestFeed Styles */
+.request-feed h2 {
+  font-family: "DM Sans", sans-serif;
+  background-color: #E8ECED;
+  padding: 50px;
+  font-size: 2rem;
+  text-align: center;
+  color: #053242;
+  border-radius: 8px;
+  width: 60%;
+  margin: 20px auto;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.filter-buttons button {
+  background-color: #eee;
+  padding: 0.5rem 1rem;
+  border: 1px solid #053242;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+}
+
+.filter-buttons button:hover {
+  background-color: #400D05;
+  color: white;
+}
+
+.feed {
+  margin-top: 2rem;
+}
+
+.request-item {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.request-item h3 {
+  margin-bottom: 1rem;
+}
+
+.request-item p {
+  font-size: 1.1rem;
+  color: #053242;
+}
 
 /* CreateRequest Page Styles */
 #createRequest h2 {
@@ -35,7 +91,6 @@ body {
   border-radius: 8px;
   width: 60%;
   margin: 20px auto;
-
 }
 
 #createRequest form {
@@ -56,7 +111,8 @@ body {
 }
 
 #createRequest input,
-#createRequest textarea {
+#createRequest textarea,
+#createRequest select {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
@@ -104,14 +160,20 @@ body {
   color: white;
 }
 
+/* NavBar Styles */
+nav {
+  padding: 1rem;
+  background-color: #053242;
+}
+
 nav a {
   font-family: 'DM Sans', sans-serif; 
   font-size: 1rem; 
   text-decoration: none; 
-  color: #053242; 
+  color: white; 
+  margin: 0 1rem;
 }
 
-/* Add hover effect */
 nav a:hover {
-  color: #ff6347; /* Optional: Change the color on hover */
+  color: #007A09; 
 }
