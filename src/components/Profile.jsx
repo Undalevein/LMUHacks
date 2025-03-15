@@ -1,4 +1,12 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient";
+import React from 'react'
 
-export default function Profile() {}
+function Profile() {
+  return (
+    <div style={{ padding: '1rem' }}>
+      <h2>Your Profile</h2>
+      <p>Here you can view and update your profile details.</p>
+    </div>
+  )
+}
+
+export default Profile

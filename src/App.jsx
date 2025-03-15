@@ -1,36 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { supabase } from "./supabaseClient";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
-import NavBar from "./components/NavBar";
-import Home from "./components/Home";
-import CreateRequest from "./components/CreateRequest";
-import Profile from "./components/Profile";
-import "./App.css";
+import React from 'react'
+// If you want to set up React Router now, uncomment these lines:
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import Profile from './components/Profile'
+import CreateRequest from './components/CreateRequest'
+import './App.css'
 
 function App() {
   return (
-    <Router>
-      <NavBar />
-      <div className="container mx-auto p-4">
+    <div>
+      {/* Uncomment the router when you're ready to use React Router:
+      <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateRequest />} />
           <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/auth"
-            element={
-              <Auth
-                supabaseClient={supabase}
-                appearance={{ theme: ThemeSupa }}
-                providers={["google"]}
-              />
-            }
-          />
+          <Route path="/create-request" element={<CreateRequest />} />
         </Routes>
-      </div>
-    </Router>
-  );
+      </Router>
+      */}
+
+      {/* For now, just show the Navbar + Home if you haven't set up routing yet: */}
+      <Navbar />
+      <Home />
+    </div>
+  )
 }
 
-export default App;
+export default App
