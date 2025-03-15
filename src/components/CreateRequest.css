@@ -1,0 +1,52 @@
+.create-request-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-request-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .create-request-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .create-request-container input,
+  .create-request-container textarea,
+  .create-request-container select {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .create-request-container input:focus,
+  .create-request-container textarea:focus,
+  .create-request-container select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .create-request-container button {
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-request-container button:hover {
+    background-color: #0056b3;
+  }
