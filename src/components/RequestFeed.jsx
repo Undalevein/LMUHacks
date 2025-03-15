@@ -1,96 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, query, onSnapshot, doc, deleteDoc } from 'firebase/firestore';
+import { collection, query, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
 
 function RequestFeed() {
   const [filter, setFilter] = useState('all');
-  const [requests, setRequests] = useState([]);
+  const [requests, setRequests] = useState({});
+  const [comments, setComments] = useState({}); // Stores comments for each request
+  const [newComments, setNewComments] = useState({}); // Stores input text for each request
 
-  // get requests from firestore
   useEffect(() => {
-    
     const q = query(collection(db, "requests"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-
-      setRequests(
-        querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-
-      );
-
+      let requestData = {};
+      querySnapshot.docs.forEach((doc) => {
+        requestData[doc.id] = { id: doc.id, ...doc.data() };
+      });
+      setRequests(requestData);
     });
 
     return () => unsubscribe();
   }, []);
 
-  // filter by category
-  const filteredRequests = requests.filter(
-    req => filter === 'all' || req.category === filter
+  // Load comments for a request in real-time
+  useEffect(() => {
+    Object.keys(requests).forEach((requestId) => {
+      const commentsRef = collection(db, "requests", requestId, "comments");
+      const unsubscribe = onSnapshot(commentsRef, (snapshot) => {
+        setComments((prev) => ({
+          ...prev,
+          [requestId]: snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })),
+        }));
+      });
 
-  );
+      return () => unsubscribe();
+    });
+  }, [requests]);
 
-  const filterCategories = ['all', 'ride', 'major', 'study', 'textbook', 'tutor'];
-
-  const categoryDescriptions = {
-    ride: "I Need a Ride",
-    major: "Looking For Specific Major",
-    study: "I Want to Study",
-    textbook: "Borrow a Textbook or Resource",
-    tutor: "I Need a Tutor"
+  // Handle comment input change
+  const handleCommentChange = (requestId, text) => {
+    setNewComments((prev) => ({ ...prev, [requestId]: text }));
   };
 
-
-  // delete req
-  const handleAccept = async (requestId) => {
+  // Add a comment to Firestore
+  const handleAddComment = async (requestId) => {
+    if (!newComments[requestId]?.trim()) return;
     try {
-      await deleteDoc(doc(db, "requests", requestId));
-      console.log("Request deleted: ", requestId);
+      await addDoc(collection(db, "requests", requestId, "comments"), {
+        text: newComments[requestId],
+        timestamp: serverTimestamp(),
+      });
+      setNewComments((prev) => ({ ...prev, [requestId]: "" })); 
     } catch (error) {
-      console.error("Error deleting request: ", error);
+      console.error("Error adding comment:", error);
     }
   };
 
+  const filteredRequests = Object.values(requests).filter(req => filter === 'all' || req.category === filter);
+  const categories = ['all', 'ride', 'major', 'study', 'textbook', 'tutor'];
 
   return (
-    <div className="request-feed" style={{ padding: '1rem' }}>
+    <div className="request-feed">
       <h2>Request Feed</h2>
-      
-      <div className="filter-buttons" style={{ marginBottom: '1rem' }}>
 
-        {filterCategories.map(cat => (
-          
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            style={{ marginRight: '0.5rem' }}
-          >
-
-            {cat === 'all' ? 'All' : cat}
-
+      <div className="filter-buttons">
+        {categories.map(cat => (
+          <button key={cat} onClick={() => setFilter(cat)}>
+            {cat.charAt(0).toUpperCase() + cat.slice(1)}
           </button>
         ))}
-
       </div>
 
       <div className="feed">
-
         {filteredRequests.map(req => (
-          
-          <div
-            key={req.id}
-            className="request-item"
-            style={{ border: '1px solid #ddd', padding: '1rem', marginBottom: '1rem' }}
-          >
-
+          <div key={req.id} className="request-item">
             <h3>{req.title}</h3>
-            
-            <p>
-              <strong>Category:</strong> {categoryDescriptions[req.category] || req.category}
-            </p>
-
+            <p><strong>Category:</strong> {req.category}</p>
             <p>{req.description}</p>
-            
-            <button onClick={() => handleAccept(req.id)}>I can do this</button>
-          
+
+            {/* Comment Section */}
+            <div className="comments-section">
+              <h4>Comments</h4>
+              <div className="comment-input">
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={newComments[req.id] || ""}
+                  onChange={(e) => handleCommentChange(req.id, e.target.value)}
+                />
+                <button onClick={() => handleAddComment(req.id)}>Submit</button>
+              </div>
+              <div className="comments-list">
+                {comments[req.id]?.map(comment => (
+                  <div key={comment.id} className="comment">
+                    <p>{comment.text}</p>
+                    {comment.timestamp && (
+                      <small>{new Date(comment.timestamp.seconds * 1000).toLocaleString()}</small>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         ))}
       </div>
