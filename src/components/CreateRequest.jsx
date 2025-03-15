@@ -5,7 +5,7 @@ function CreateRequest() {
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
 
-  const categories = ['ride', 'student', 'study', 'textbook', 'tutor']
+  const categories = ['ride', 'major', 'study', 'textbook', 'tutor']
 
   const handleSubmit = (e) => {
     e.preventDefault()
