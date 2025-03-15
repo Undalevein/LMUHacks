@@ -4,7 +4,7 @@ import React from 'react'
 
 function Home() {
   return (
-    <div style={{ padding: '1rem' }}>
+    <div id="Home" style={{ padding: '1rem' }}>
       <h1>Welcome to the Student Requests App</h1>
       <p>Students can post and view various types of requests.</p>
     </div>

@@ -14,11 +14,10 @@ function CreateRequest() {
   }
 
   return (
-    <div header>
+    <div id="createRequest">
       <h2>Create a New Request</h2>
       <form onSubmit={handleSubmit}>
-        <div title>
-          
+        <div id="title">
           <label>
             Request Title:<br />
             <input 
@@ -28,10 +27,9 @@ function CreateRequest() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </label>
-
         </div>
-        <div desc>
-          
+
+        <div id="desc">
           <label>
             Request Description:<br />
             <textarea 
@@ -41,25 +39,26 @@ function CreateRequest() {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
-
         </div>
-        <div labels>
-          
+
+        <div id="labels">
           <label>
             Request Category:
           </label>
-          <div buttons>
+          <div id="buttons" className="category-buttons">
             {categories.map((cat) => (
               <button 
                 key={cat} 
                 type="button" 
                 onClick={() => setCategory(cat)}
+                className={category === cat ? 'selected' : ''}
               >
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
               </button>
             ))}
           </div>
         </div>
+
         <button type="submit">Submit Request</button>
       </form>
     </div>
