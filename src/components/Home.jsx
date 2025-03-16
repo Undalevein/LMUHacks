@@ -5,8 +5,6 @@ import { SignIn, SignOut } from './Auth';
 function Home() {
   const user = useAuthentication()
 
-  console.log(user)
-
   return (
     <div id="Home" style={{ padding: '1rem' }}>
       {!user ? <SignIn /> : <SignOut />}
