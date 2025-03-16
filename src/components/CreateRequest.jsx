@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import './CreateRequest.css';
+import { useAuthentication } from '../services/authService';
 
 function CreateRequest() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-
+  const user = useAuthentication();
 
   const categories = [
     { value: 'ride', label: 'I Need a Ride' },
@@ -17,7 +18,6 @@ function CreateRequest() {
     { value: 'tutor', label: 'I Need a Tutor' }
   ];
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title || !description || !category) {
@@ -25,12 +25,12 @@ function CreateRequest() {
       return;
     }
 
-
     try {
       await addDoc(collection(db, "requests"), {
         title,
         description,
         category,
+        userId: user.uid, // Store user UID
         timestamp: serverTimestamp(),
       });
 
@@ -43,45 +43,34 @@ function CreateRequest() {
     }
   };
 
-
   return (
     <div className="create-request-container">
-      
       <h2>Create a New Request</h2>
-      
       <form onSubmit={handleSubmit}>
-        
         <input 
           type="text" 
           value={title} 
           onChange={(e) => setTitle(e.target.value)} 
           placeholder="Title" 
         />
-
-
         <textarea 
           value={description} 
           onChange={(e) => setDescription(e.target.value)} 
           placeholder="Description" 
         />
-        
         <select 
           value={category} 
           onChange={(e) => setCategory(e.target.value)}
         >
-
           <option value="">Select Category</option>
           {categories.map(cat => (
-            
             <option key={cat.value} value={cat.value}>
               {cat.label}
             </option>
-
           ))}
         </select>
         <button type="submit">Submit</button>
       </form>
-      
     </div>
   );
 }

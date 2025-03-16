@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, query, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, onSnapshot, addDoc, serverTimestamp, deleteDoc, doc } from 'firebase/firestore';
 
-function RequestFeed() {
+function RequestFeed({ user }) {
   const [filter, setFilter] = useState('all');
   const [requests, setRequests] = useState({});
   const [comments, setComments] = useState({}); // Stores comments for each request
@@ -55,6 +55,19 @@ function RequestFeed() {
     }
   };
 
+  // Handle request deletion
+  const handleDeleteRequest = async (requestId) => {
+    try {
+      // Delete the request document
+      await deleteDoc(doc(db, "requests", requestId));
+      // Optionally, delete the comments associated with the request
+      // await deleteCollection(doc(db, "requests", requestId, "comments"));
+      console.log("Request deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting request:", error);
+    }
+  };
+
   const filteredRequests = Object.values(requests).filter(req => filter === 'all' || req.category === filter);
   const categories = ['all', 'ride', 'major', 'study', 'textbook', 'tutor'];
 
@@ -100,6 +113,13 @@ function RequestFeed() {
                 ))}
               </div>
             </div>
+
+            {/* Delete button */}
+            {user.uid === req.userId && (
+              <button onClick={() => handleDeleteRequest(req.id)} className="delete-btn">
+                Delete Request
+              </button>
+            )}
           </div>
         ))}
       </div>
