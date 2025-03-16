@@ -42,7 +42,7 @@ function Profile() {
   if (!user) return <div>Please log in to view your profile.</div>;
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div id= "profile" style={{ padding: '1rem' }}>
       <h2>Your Profile</h2>
       <form onSubmit={handleSubmit}>
         <div>
