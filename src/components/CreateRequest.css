@@ -2,15 +2,20 @@
     max-width: 600px;
     margin: 2rem auto;
     padding: 1.5rem;
-    background: #fff;
+    background: #023942;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    color: #e0f2f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   }
   
   .create-request-container h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: #4fd1c5;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
   
   .create-request-container form {
@@ -24,29 +29,40 @@
     padding: 0.75rem;
     margin-bottom: 1rem;
     font-size: 1rem;
-    border: 1px solid #ddd;
+    border: 1px solid #2a6d74;
     border-radius: 4px;
-    transition: border-color 0.2s ease;
+    background-color: #01272f;
+    color: #e0f2f1;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
   
   .create-request-container input:focus,
   .create-request-container textarea:focus,
   .create-request-container select:focus {
-    border-color: #007bff;
+    border-color: #4fd1c5;
     outline: none;
+    box-shadow: 0 0 0 2px rgba(79, 209, 197, 0.3);
   }
   
   .create-request-container button {
     padding: 0.75rem;
-    background-color: #007bff;
+    background-color: #2a9d8f;
     color: #fff;
     border: none;
     border-radius: 4px;
     font-size: 1rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
   .create-request-container button:hover {
-    background-color: #0056b3;
+    background-color: #3aafa9;
+    transform: translateY(-2px);
+  }
+  
+  .create-request-container button:active {
+    transform: translateY(0);
   }
