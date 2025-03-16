@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useAuthentication } from '../services/authService';
 
 function Profile() {
@@ -29,7 +29,7 @@ function Profile() {
     }
 
     try {
-      await updateDoc(doc(db, "users", user.uid), {
+      await setDoc(doc(db, "users", user.uid), {
         bio,
         contactInfo,
       });
